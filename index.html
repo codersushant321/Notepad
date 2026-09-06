@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notepad</title>
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+<!-- WELCOME SCREEN -->
+<div id="welcome-screen">
+  <div class="welcome-card">
+    <div class="welcome-title serif">Welcome to Notepad</div>
+    <div class="welcome-sub">A simple page to write, sketch, and work things out — with pages, math tools, and pressure-sensitive drawing, all in one place.</div>
+    <button id="get-started-btn">Let's get started</button>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+  <header>
+    <div class="header-left">
+      <h1 class="serif">Notepad</h1>
+      <div class="tabs">
+        <div class="tab active" data-pane="write-pane">Write</div>
+        <div class="tab" data-pane="draw-pane">Draw</div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="export-btn">Save all (.json)</button>
+      <button class="btn" id="import-btn">Open backup</button>
+      <input type="file" id="import-input" accept="application/json" style="display:none">
+      <button class="btn primary" id="download-btn">Download page</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="pages-sidebar">
+      <div id="pages-sidebar-header"><span>Pages</span></div>
+      <div id="pages-list"></div>
+      <button id="add-page-btn">+ New page</button>
+    </div>
+
+    <div id="write-pane" class="active">
+      <div id="write-toolbar">
+        <div class="toolbar-group">
+          <span class="toolbar-label">Symbols</span>
+          <div class="symbol-row" id="symbol-grid-write"></div>
+        </div>
+        <div class="toolbar-group">
+          <button class="tool-btn" id="calc-toggle-write" title="Calculator">🧮</button>
+        </div>
+      </div>
+
+      <textarea id="text-area" placeholder="Start writing... the page grows as you go."></textarea>
+
+      <div id="write-ink-section">
+        <div id="write-ink-toolbar">
+          <span class="toolbar-label">Handwrite</span>
+          <button class="tool-btn active" data-wtool="pen" title="Pen">🖊️</button>
+          <button class="tool-btn" data-wtool="pencil" title="Pencil">✏️</button>
+          <button class="tool-btn" data-wtool="eraser" title="Eraser">🧹</button>
+          <div class="swatch active" style="background:#26241f" data-wcolor="#26241f"></div>
+          <div class="swatch" style="background:#1f5f5b" data-wcolor="#1f5f5b"></div>
+          <div class="swatch" style="background:#8c4a3d" data-wcolor="#8c4a3d"></div>
+          <div class="swatch" style="background:#3d5b8c" data-wcolor="#3d5b8c"></div>
+          <input type="range" id="write-size-slider" min="1" max="24" value="3">
+          <span id="write-size-readout">3px</span>
+          <button class="btn small" id="write-undo-btn" title="Undo">↺</button>
+          <button class="btn small danger" id="write-clear-btn" title="Clear">⨯</button>
+        </div>
+        <div id="write-ink-wrap">
+          <canvas id="write-ink-canvas"></canvas>
+          <div id="write-brush-cursor"></div>
+        </div>
+      </div>
+
+      <div id="calc-panel-write" class="calc-panel">
+        <div class="calc-panel-head">
+          <span>Calculator</span>
+          <button id="calc-close-write" class="calc-close">×</button>
+        </div>
+        <input id="calc-display-write" class="calc-display" type="text" value="0" inputmode="decimal">
+        <div id="calc-result-write" class="calc-result">&nbsp;</div>
+        <div class="calc-grid" id="calc-grid-write"></div>
+        <button class="btn small calc-insert" id="calc-insert-write">Insert into page</button>
+      </div>
+    </div>
+
+    <div id="draw-pane">
+      <div class="dock">
+        <div class="dock-group">
+          <span class="dock-label">Draw</span>
+          <button class="tool-btn active" data-tool="pen" title="Pen">🖊️</button>
+          <button class="tool-btn" data-tool="pencil" title="Pencil">✏️</button>
+          <button class="tool-btn" data-tool="eraser" title="Eraser">🧹</button>
+        </div>
+        <div class="dock-group">
+          <span class="dock-label">Shapes</span>
+          <button class="tool-btn" data-tool="rectangle" title="Rectangle">▭</button>
+          <button class="tool-btn" data-tool="triangle" title="Triangle">△</button>
+          <button class="tool-btn" data-tool="ruler" title="Ruler — straight lines">📏</button>
+          <button class="tool-btn" data-tool="compass" title="Compass — circles">🧭</button>
+        </div>
+        <div class="dock-group">
+          <span class="dock-label">Measure</span>
+          <button class="tool-btn" data-tool="protractor" title="Angle between two lines">📐</button>
+          <button class="tool-btn" data-tool="graph" title="Cartesian graph">📈</button>
+        </div>
+        <div class="dock-group">
+          <span class="dock-label">Color</span>
+          <div class="swatch active" style="background:#26241f" data-color="#26241f"></div>
+          <div class="swatch" style="background:#1f5f5b" data-color="#1f5f5b"></div>
+          <div class="swatch" style="background:#8c4a3d" data-color="#8c4a3d"></div>
+          <div class="swatch" style="background:#3d5b8c" data-color="#3d5b8c"></div>
+          <div class="swatch" style="background:#7a5ea8" data-color="#7a5ea8"></div>
+          <div class="swatch" style="background:#c0392b" data-color="#c0392b"></div>
+          <div class="swatch" style="background:#d68910" data-color="#d68910"></div>
+          <div class="swatch" style="background:#2e7d32" data-color="#2e7d32"></div>
+          <div class="swatch" style="background:#5d4037" data-color="#5d4037"></div>
+          <div class="swatch" style="background:#7f8c8d" data-color="#7f8c8d"></div>
+        </div>
+        <div class="dock-group">
+          <span class="dock-label">Size</span>
+          <input type="range" id="size-slider" min="1" max="24" value="3">
+          <span id="size-readout">3px</span>
+        </div>
+        <div class="dock-group">
+          <span class="dock-label">Eraser</span>
+          <input type="range" id="eraser-size-slider" min="4" max="60" value="18">
+          <span id="eraser-size-readout">18px</span>
+        </div>
+        <div class="dock-group">
+          <button class="btn small" id="undo-btn" title="Undo">↺</button>
+          <button class="btn small danger" id="clear-btn" title="Clear page">⨯</button>
+        </div>
+        <div class="dock-group">
+          <button class="tool-btn" id="calc-toggle" title="Calculator">🧮</button>
+        </div>
+      </div>
+
+      <div id="canvas-area">
+        <div id="tool-hint">Pen — draw freely. Pressure from your pen, finger, or trackpad changes the stroke width.</div>
+        <div id="canvas-wrap">
+          <canvas id="draw-canvas"></canvas>
+          <canvas id="overlay-canvas"></canvas>
+          <div id="brush-cursor"></div>
+          <div id="measure-badge"></div>
+
+          <div id="calc-panel" class="calc-panel">
+            <div class="calc-panel-head">
+              <span>Calculator</span>
+              <button id="calc-close" class="calc-close">×</button>
+            </div>
+            <input id="calc-display" class="calc-display" type="text" value="0" inputmode="decimal">
+            <div id="calc-result" class="calc-result">&nbsp;</div>
+            <div class="calc-grid" id="calc-grid"></div>
+            <button class="btn small calc-insert" id="calc-insert">Insert into page</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="app-footer">Everything stays on this page only. Use "Save all" before closing the tab if you want to keep it.</footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
