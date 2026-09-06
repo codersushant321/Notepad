@@ -1,0 +1,376 @@
+
+
+@media (max-width: 720px) {
+
+  /* ---------- GLOBAL ---------- */
+
+  html,
+  body {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  /* ---------- HEADER ---------- */
+
+  header {
+    height: auto;
+    min-height: 56px;
+    padding: 8px 10px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  header .brand {
+    font-size: 18px;
+  }
+
+  header .actions {
+    width: 100%;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  header .actions .btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    min-height: 40px;
+  }
+
+  /* ---------- MAIN LAYOUT ---------- */
+
+  main {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 56px);
+    min-height: 0;
+  }
+
+  /* ---------- PAGES SIDEBAR ---------- */
+
+  #pages-sidebar {
+    width: 100%;
+    height: 48px;
+    min-height: 48px;
+    flex: 0 0 48px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  #pages-sidebar-header {
+    width: auto;
+    min-width: 65px;
+    padding: 0 10px;
+    border-bottom: none;
+  }
+
+  #pages-list {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    height: 100%;
+    align-items: center;
+    overflow-x: auto;
+    flex: 1;
+  }
+
+  #pages-list > * {
+    flex: 0 0 auto;
+  }
+
+  #add-page-btn {
+    flex: 0 0 auto;
+    margin: 0 8px;
+    min-height: 36px;
+    white-space: nowrap;
+  }
+
+  /* ---------- WRITE PANE ---------- */
+
+  #write-pane {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 10px 40px;
+    overflow-y: auto;
+  }
+
+  #write-toolbar {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  #write-toolbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .symbol-row {
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+  }
+
+  .symbol-btn,
+  .tool-btn {
+    min-width: 42px;
+    min-height: 42px;
+  }
+
+  #text-area {
+    width: 100%;
+    min-height: 180px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* ---------- WRITE INK SECTION ---------- */
+
+  #write-ink-section {
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  #write-ink-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+
+    padding: 7px 4px;
+
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  #write-ink-toolbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  #write-ink-toolbar .toolbar-label {
+    flex: 0 0 auto;
+  }
+
+  #write-ink-toolbar .tool-btn {
+    flex: 0 0 42px;
+  }
+
+  #write-ink-toolbar .swatch {
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+  }
+
+  #write-size-slider {
+    min-width: 100px;
+  }
+
+  /* ---------- DRAW PANE ---------- */
+
+  #draw-pane {
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Drawing toolbar becomes horizontally scrollable */
+  #draw-toolbar {
+    width: 100%;
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+    padding: 7px 8px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: none;
+  }
+
+  #draw-toolbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  #draw-toolbar > * {
+    flex: 0 0 auto;
+  }
+
+  /* Larger buttons for fingers */
+  #draw-toolbar .tool-btn,
+  #draw-toolbar button {
+    min-width: 42px;
+    min-height: 42px;
+  }
+
+  /* ---------- DRAWING CANVAS ---------- */
+
+  #tool-hint {
+    min-height: 30px;
+    padding: 6px 10px;
+
+    font-size: 11px;
+    line-height: 1.4;
+
+    overflow: hidden;
+  }
+
+  #canvas-wrap {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+
+    overflow: auto;
+    overscroll-behavior: contain;
+
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #draw-canvas,
+  #overlay-canvas {
+    touch-action: none;
+  }
+
+  /* Hide desktop brush cursor on touch devices */
+  #brush-cursor {
+    display: none;
+  }
+
+  /* ---------- MEASUREMENT BADGE ---------- */
+
+  #measure-badge {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  /* ---------- FOOTER ---------- */
+
+  footer {
+    padding: 7px 10px;
+    font-size: 9px;
+    text-align: center;
+  }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  header {
+    padding: 7px;
+  }
+
+  header .brand {
+    font-size: 16px;
+  }
+
+  main {
+    height: calc(100vh - 52px);
+  }
+
+  #pages-sidebar {
+    height: 44px;
+    min-height: 44px;
+    flex-basis: 44px;
+  }
+
+  #pages-sidebar-header {
+    min-width: 55px;
+    font-size: 12px;
+  }
+
+  #add-page-btn {
+    font-size: 12px;
+    padding: 6px 9px;
+  }
+
+  #write-pane {
+    padding: 8px 8px 35px;
+  }
+
+  #text-area {
+    font-size: 16px;
+    min-height: 160px;
+  }
+
+  .tool-btn,
+  .symbol-btn {
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  #draw-toolbar {
+    padding: 6px;
+    gap: 5px;
+  }
+
+  #draw-toolbar .tool-btn,
+  #draw-toolbar button {
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  #tool-hint {
+    font-size: 10px;
+    padding: 5px 8px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+  header .brand {
+    font-size: 15px;
+  }
+
+  #pages-sidebar-header {
+    min-width: 48px;
+  }
+
+  #write-pane {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  #draw-toolbar {
+    gap: 4px;
+  }
+
+  #draw-toolbar .tool-btn,
+  #draw-toolbar button {
+    min-width: 38px;
+    min-height: 38px;
+  }
+}
