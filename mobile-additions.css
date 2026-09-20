@@ -1,0 +1,143 @@
+/* ============================================================
+   MOBILE ADDITIONS - paste at the END of your stylesheet
+   ============================================================ */
+
+/* ---------- Touch basics (any touch device) ---------- */
+@media (hover: none) and (pointer: coarse){
+  *{ -webkit-tap-highlight-color: transparent; }
+  .btn, .tab, .symbol-btn, .calc-key{ min-height: 44px; }
+  .btn{ padding: 10px 14px; font-size: 13px; }
+  .btn.small{ min-height: 36px; }
+  .tool-btn{ width: 46px; height: 46px; }
+  .swatch{ width: 30px; height: 30px; }
+  .page-del{ opacity: 0.65; padding: 6px 8px; }   /* no hover on touch */
+  #size-slider, #eraser-size-slider{ height: 90px; width: 30px; }
+  #write-size-slider{ width: 110px; }
+  button, .tab, .page-item{ user-select: none; -webkit-user-select: none; }
+}
+
+/* ---------- Dock: adjustable (side + collapse) ---------- */
+#draw-pane.dock-right{ flex-direction: row-reverse; }
+#draw-pane.dock-right .dock{
+  border-right: none; border-left: 1px solid var(--rule);
+}
+.dock{ transition: width .18s ease, padding .18s ease; }
+#draw-pane.dock-collapsed .dock{
+  width: 0; padding: 0; overflow: hidden; border: none;
+}
+.dock-controls{
+  display: flex; flex-direction: column; gap: 6px; align-items: center;
+}
+.dock-toggle{
+  position: absolute; top: 50%; z-index: 7; transform: translateY(-50%);
+  width: 26px; height: 54px; border: 1px solid var(--rule); background: var(--paper-card);
+  color: var(--ink-soft); cursor: pointer; font-size: 13px; padding: 0;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+#draw-pane{ position: relative; }
+#draw-pane:not(.dock-right) .dock-toggle{ left: 0; border-radius: 0 8px 8px 0; }
+#draw-pane.dock-right .dock-toggle{ right: 0; border-radius: 8px 0 0 8px; }
+#draw-pane:not(.dock-collapsed):not(.dock-right) .dock-toggle{ left: 74px; }
+#draw-pane:not(.dock-collapsed).dock-right .dock-toggle{ right: 74px; }
+
+/* ---------- Write pane: scrollable + fullscreen ---------- */
+#write-pane{
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+}
+#write-toolbar{
+  position: sticky; top: -22px; z-index: 5;   /* stays reachable while scrolling */
+}
+#write-ink-wrap{
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+/* Scroll mode: fingers pan the canvas instead of drawing */
+#write-ink-wrap.scroll-mode #write-ink-canvas{ touch-action: pan-x pan-y; cursor: grab; }
+
+#fullscreen-btn{ white-space: nowrap; }
+
+/* Fullscreen writing */
+#write-pane.fullscreen{
+  position: fixed; inset: 0; z-index: 100;
+  height: 100dvh; width: 100vw;
+  padding: 12px 16px calc(24px + env(safe-area-inset-bottom));
+  padding-top: calc(12px + env(safe-area-inset-top));
+  background: var(--paper);
+  display: block; overflow-y: auto;
+}
+#write-pane.fullscreen #write-ink-wrap{ height: 70dvh; }
+#write-pane.fullscreen #text-area{ min-height: 55dvh; }
+body.write-fullscreen{ overflow: hidden; }
+
+/* ---------- Phone layout ---------- */
+@media (max-width: 720px){
+  html, body{ overscroll-behavior: none; }
+  #welcome-screen{ height: 100dvh; }
+  .welcome-card{ padding: 36px 24px; }
+  #app{ height: 100dvh; }
+
+  header{ padding: 8px 12px; gap: 8px; }
+  header h1{ font-size: 16px; }
+  .header-left{ gap: 10px; width: 100%; justify-content: space-between; }
+  header .actions{
+    width: 100%; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 2px;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  header .actions::-webkit-scrollbar{ display: none; }
+  header .actions .btn{ flex-shrink: 0; }
+
+  main{ flex-direction: column; }
+
+  /* Pages become a horizontal strip */
+  #pages-sidebar{
+    width: 100%; flex-direction: row; align-items: center;
+    border-right: none; border-bottom: 1px solid var(--rule);
+    max-height: 52px; flex-shrink: 0;
+  }
+  #pages-sidebar-header{ display: none; }
+  #pages-list{
+    display: flex; flex-direction: row; gap: 6px; padding: 6px 8px;
+    overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
+  }
+  #pages-list::-webkit-scrollbar{ display: none; }
+  .page-item{ margin: 0; flex-shrink: 0; min-width: 84px; max-width: 150px; }
+  #add-page-btn{ margin: 6px 8px; padding: 8px 12px; white-space: nowrap; flex-shrink: 0; }
+
+  /* Write */
+  #write-pane{ padding: 12px 14px 80px; }
+  #write-toolbar{ top: -12px; padding: 8px; gap: 8px; }
+  .symbol-row{ flex-wrap: nowrap; overflow-x: auto; max-width: 100%; scrollbar-width: none; }
+  .symbol-btn{ width: 40px; height: 40px; flex-shrink: 0; }
+  #text-area{ font-size: 17px; }
+  #write-ink-wrap{ height: 45dvh; }
+  #write-ink-toolbar{ overflow-x: auto; flex-wrap: nowrap; }
+  #write-ink-toolbar > *{ flex-shrink: 0; }
+
+  /* Draw: dock stays a side rail (left or right), slimmer */
+  .dock{ width: 62px; padding: 10px 0; gap: 12px; }
+  #draw-pane.dock-right .dock{ width: 62px; }
+  #draw-pane:not(.dock-collapsed):not(.dock-right) .dock-toggle{ left: 62px; }
+  #draw-pane:not(.dock-collapsed).dock-right .dock-toggle{ right: 62px; }
+  #tool-hint{ padding: 4px 10px; font-size: 11px; }
+
+  /* Calculator becomes a bottom sheet */
+  .calc-panel{
+    position: fixed; left: 8px; right: 8px; top: auto;
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    width: auto; z-index: 120; max-height: 70dvh; overflow-y: auto;
+  }
+  .calc-key{ padding: 12px 0; font-size: 15px; }
+
+  footer{ display: none; }
+}
+
+/* ---------- Landscape phones: reclaim vertical space ---------- */
+@media (max-height: 480px) and (orientation: landscape){
+  header{ padding: 4px 10px; }
+  header h1{ display: none; }
+  footer{ display: none; }
+  #write-ink-wrap{ height: 60dvh; }
+  .dock{ padding: 6px 0; gap: 8px; }
+}
