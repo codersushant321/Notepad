@@ -141,3 +141,78 @@ body.write-fullscreen{ overflow: hidden; }
   #write-ink-wrap{ height: 60dvh; }
   .dock{ padding: 6px 0; gap: 8px; }
 }
+
+/* ---------- Top bar: Full / Compact / Hidden ---------- */
+.bar-toggle{
+  width: 34px; height: 34px; border-radius: 7px; padding: 0; flex-shrink: 0;
+  border: 1px solid var(--rule); background: #fff; color: var(--ink-soft);
+  cursor: pointer; font-size: 14px; line-height: 1;
+}
+.bar-toggle:hover{ border-color: var(--well); color: var(--well); }
+
+/* Compact = one slim row: tabs + scrolling actions, title hidden */
+header.compact{ flex-wrap: nowrap; padding: 4px 10px; gap: 8px; }
+header.compact h1{ display: none; }
+header.compact .header-left{ flex: 0 0 auto; width: auto; gap: 8px; }
+header.compact .actions{
+  flex: 1 1 auto; min-width: 0; width: auto; flex-wrap: nowrap;
+  overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+header.compact .actions::-webkit-scrollbar{ display: none; }
+header.compact .btn{ min-height: 32px; padding: 4px 9px; font-size: 11.5px; flex-shrink: 0; }
+header.compact .tab{ min-height: 32px; padding: 5px 10px; display: flex; align-items: center; }
+header.compact .bar-toggle{ width: 30px; height: 30px; }
+
+/* Hidden = bar gone, small pill to bring it back */
+header.bar-hidden{ display: none; }
+#bar-reveal{
+  display: none; position: fixed; z-index: 90; left: 50%;
+  top: calc(4px + env(safe-area-inset-top, 0px)); transform: translateX(-50%);
+  padding: 4px 16px; border-radius: 0 0 12px 12px; border: 1px solid var(--rule);
+  background: var(--paper-card); color: var(--ink-soft); font-size: 12px;
+  box-shadow: 0 6px 16px var(--shadow); cursor: pointer;
+}
+#bar-reveal.show{ display: block; }
+
+/* ---------- Separate pen / eraser sliders ---------- */
+.size-field{
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10.5px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em;
+}
+.size-field input[type=range]{ width: 90px; }
+.size-field.pen input{ accent-color: var(--well); }
+.size-field.eraser input{ accent-color: var(--brick); }
+.size-field .readout{ min-width: 32px; text-transform: none; letter-spacing: 0; }
+
+/* ---------- Slim scrollbar (rendered by JS) ---------- */
+.has-slim{ scrollbar-width: none; }
+.has-slim::-webkit-scrollbar{ display: none; }
+
+.slim-scroll{
+  position: fixed; width: 18px; z-index: 110; display: none;
+  touch-action: none; user-select: none; -webkit-user-select: none;
+}
+.slim-scroll.on{ display: block; }
+.slim-scroll .track{
+  position: absolute; right: 7px; top: 0; bottom: 0; width: 2px; border-radius: 2px;
+  background: rgba(38,36,31,0.12);
+}
+.slim-scroll .thumb{
+  position: absolute; right: 5px; width: 6px; border-radius: 6px;
+  background: var(--well); opacity: 0.3;
+  transition: opacity .2s ease, width .15s ease, right .15s ease;
+}
+.slim-scroll.active .thumb{ opacity: 0.75; }
+.slim-scroll.dragging .thumb{ opacity: 1; width: 10px; right: 3px; }
+
+/* Bigger invisible grab area on touch screens */
+@media (hover: none) and (pointer: coarse){
+  .slim-scroll{ width: 28px; }
+  .slim-scroll .track{ right: 12px; }
+  .slim-scroll .thumb{ right: 10px; width: 6px; }
+  .slim-scroll.dragging .thumb{ right: 8px; width: 10px; }
+}
+
+@media (max-width: 720px){
+  .size-field input[type=range]{ width: 70px; }
+}
